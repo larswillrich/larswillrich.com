@@ -3,7 +3,7 @@ terraform {
   backend "s3" {
     # Replace this with your bucket name!
     bucket         = "terraform-state-lars-willrich"
-    key            = "infrastructure/terraform.tfstate"
+    key            = "larswillrich/personalWebsite/terraform.tfstate"
     region         = "eu-central-1"
     # Replace this with your DynamoDB table name!
     dynamodb_table = "terraform-state-locks"
