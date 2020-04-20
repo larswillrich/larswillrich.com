@@ -1,1 +1,1 @@
-aws s3 cp ./html/ s3://larswillrich.com/ --recursive
+aws s3 sync ./html/ s3://larswillrich.com/
