@@ -1,0 +1,1127 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Lars Willrich | Data & AI Consultant</title>
+    <meta name="description" content="Lars Willrich - Data & AI Principal Consultant based in Zurich. Expert in Data Mesh, cloud-native architectures, and AI accelerators.">
+    <link rel="preconnect" href="https://fonts.googleapis.com">
+    <link rel="preconnect" href="https://fonts.gstatic.com" crossorigin>
+    <link href="https://fonts.googleapis.com/css2?family=Inter:wght@300;400;500;600;700&family=Playfair+Display:wght@400;500;600;700&display=swap" rel="stylesheet">
+    <style>
+        :root {
+            --navy: #0f1b2d;
+            --navy-light: #1a2b45;
+            --navy-mid: #243651;
+            --slate: #3d4f65;
+            --gold: #c8a45e;
+            --gold-light: #dbb96e;
+            --gold-dark: #b08d3e;
+            --cream: #f8f6f1;
+            --cream-dark: #ede9e0;
+            --white: #ffffff;
+            --text-dark: #1a1a2e;
+            --text-mid: #4a4a5e;
+            --text-light: #8a8a9e;
+            --text-on-dark: #c8cdd5;
+        }
+
+        * {
+            margin: 0;
+            padding: 0;
+            box-sizing: border-box;
+        }
+
+        html {
+            scroll-behavior: smooth;
+        }
+
+        body {
+            font-family: 'Inter', -apple-system, BlinkMacSystemFont, sans-serif;
+            color: var(--text-dark);
+            background: var(--cream);
+            line-height: 1.6;
+            overflow-x: hidden;
+        }
+
+        /* ─── Navigation ─── */
+        nav {
+            position: fixed;
+            top: 0;
+            left: 0;
+            right: 0;
+            z-index: 1000;
+            padding: 1.2rem 2rem;
+            display: flex;
+            justify-content: space-between;
+            align-items: center;
+            transition: all 0.4s ease;
+        }
+
+        nav.scrolled {
+            background: rgba(15, 27, 45, 0.97);
+            backdrop-filter: blur(12px);
+            padding: 0.8rem 2rem;
+            box-shadow: 0 2px 20px rgba(0, 0, 0, 0.15);
+        }
+
+        .nav-logo {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            font-weight: 600;
+            color: var(--white);
+            text-decoration: none;
+            letter-spacing: 1px;
+        }
+
+        .nav-logo span {
+            color: var(--gold);
+        }
+
+        .nav-links {
+            display: flex;
+            gap: 2rem;
+            list-style: none;
+        }
+
+        .nav-links a {
+            color: var(--text-on-dark);
+            text-decoration: none;
+            font-size: 0.85rem;
+            font-weight: 500;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            transition: color 0.3s;
+            position: relative;
+        }
+
+        .nav-links a::after {
+            content: '';
+            position: absolute;
+            bottom: -4px;
+            left: 0;
+            width: 0;
+            height: 1.5px;
+            background: var(--gold);
+            transition: width 0.3s;
+        }
+
+        .nav-links a:hover {
+            color: var(--gold);
+        }
+
+        .nav-links a:hover::after {
+            width: 100%;
+        }
+
+        .nav-toggle {
+            display: none;
+            flex-direction: column;
+            gap: 5px;
+            cursor: pointer;
+            z-index: 1001;
+        }
+
+        .nav-toggle span {
+            width: 24px;
+            height: 2px;
+            background: var(--white);
+            transition: all 0.3s;
+        }
+
+        /* ─── Hero ─── */
+        .hero {
+            min-height: 100vh;
+            background: linear-gradient(135deg, var(--navy) 0%, var(--navy-light) 50%, var(--navy-mid) 100%);
+            display: flex;
+            align-items: center;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .hero::before {
+            content: '';
+            position: absolute;
+            top: -50%;
+            right: -20%;
+            width: 80%;
+            height: 200%;
+            background: radial-gradient(ellipse, rgba(200, 164, 94, 0.06) 0%, transparent 70%);
+            pointer-events: none;
+        }
+
+        .hero::after {
+            content: '';
+            position: absolute;
+            bottom: 0;
+            left: 0;
+            right: 0;
+            height: 120px;
+            background: linear-gradient(to top, var(--cream), transparent);
+            pointer-events: none;
+        }
+
+        .hero-grid {
+            position: absolute;
+            inset: 0;
+            background-image:
+                linear-gradient(rgba(200, 164, 94, 0.03) 1px, transparent 1px),
+                linear-gradient(90deg, rgba(200, 164, 94, 0.03) 1px, transparent 1px);
+            background-size: 60px 60px;
+            pointer-events: none;
+        }
+
+        .hero-content {
+            max-width: 1200px;
+            margin: 0 auto;
+            padding: 0 3rem;
+            position: relative;
+            z-index: 1;
+        }
+
+        .hero-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold);
+            font-size: 0.8rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(20px);
+            animation: fadeUp 0.8s ease 0.3s forwards;
+        }
+
+        .hero-label::before {
+            content: '';
+            width: 40px;
+            height: 1.5px;
+            background: var(--gold);
+        }
+
+        .hero h1 {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(3rem, 7vw, 5.5rem);
+            font-weight: 700;
+            color: var(--white);
+            line-height: 1.1;
+            margin-bottom: 1.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.5s forwards;
+        }
+
+        .hero h1 span {
+            display: block;
+            background: linear-gradient(135deg, var(--gold), var(--gold-light));
+            -webkit-background-clip: text;
+            -webkit-text-fill-color: transparent;
+            background-clip: text;
+        }
+
+        .hero-description {
+            max-width: 540px;
+            color: var(--text-on-dark);
+            font-size: 1.15rem;
+            line-height: 1.7;
+            font-weight: 300;
+            margin-bottom: 2.5rem;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.7s forwards;
+        }
+
+        .hero-cta {
+            display: flex;
+            gap: 1rem;
+            flex-wrap: wrap;
+            opacity: 0;
+            transform: translateY(30px);
+            animation: fadeUp 0.8s ease 0.9s forwards;
+        }
+
+        .btn {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            padding: 0.9rem 2rem;
+            font-size: 0.85rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            text-decoration: none;
+            border-radius: 2px;
+            transition: all 0.3s ease;
+            cursor: pointer;
+            border: none;
+        }
+
+        .btn-primary {
+            background: var(--gold);
+            color: var(--navy);
+        }
+
+        .btn-primary:hover {
+            background: var(--gold-light);
+            transform: translateY(-2px);
+            box-shadow: 0 8px 25px rgba(200, 164, 94, 0.3);
+        }
+
+        .btn-outline {
+            background: transparent;
+            color: var(--white);
+            border: 1.5px solid rgba(255, 255, 255, 0.25);
+        }
+
+        .btn-outline:hover {
+            border-color: var(--gold);
+            color: var(--gold);
+            transform: translateY(-2px);
+        }
+
+        .hero-scroll {
+            position: absolute;
+            bottom: 140px;
+            left: 50%;
+            transform: translateX(-50%);
+            color: var(--text-on-dark);
+            font-size: 0.75rem;
+            letter-spacing: 2px;
+            text-transform: uppercase;
+            display: flex;
+            flex-direction: column;
+            align-items: center;
+            gap: 0.5rem;
+            opacity: 0;
+            animation: fadeIn 1s ease 1.2s forwards;
+        }
+
+        .hero-scroll::after {
+            content: '';
+            width: 1px;
+            height: 40px;
+            background: linear-gradient(to bottom, var(--gold), transparent);
+            animation: scrollLine 2s ease infinite;
+        }
+
+        /* ─── Sections ─── */
+        section {
+            padding: 6rem 2rem;
+        }
+
+        .section-container {
+            max-width: 1100px;
+            margin: 0 auto;
+        }
+
+        .section-header {
+            text-align: center;
+            margin-bottom: 4rem;
+        }
+
+        .section-label {
+            display: inline-flex;
+            align-items: center;
+            gap: 0.5rem;
+            color: var(--gold-dark);
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 3px;
+            text-transform: uppercase;
+            margin-bottom: 1rem;
+        }
+
+        .section-label::before,
+        .section-label::after {
+            content: '';
+            width: 30px;
+            height: 1px;
+            background: var(--gold);
+        }
+
+        .section-title {
+            font-family: 'Playfair Display', serif;
+            font-size: clamp(2rem, 4vw, 2.8rem);
+            color: var(--text-dark);
+            font-weight: 600;
+        }
+
+        /* ─── About ─── */
+        .about {
+            background: var(--white);
+        }
+
+        .about-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: center;
+        }
+
+        .about-text p {
+            color: var(--text-mid);
+            font-size: 1.05rem;
+            line-height: 1.8;
+            margin-bottom: 1.5rem;
+        }
+
+        .about-principles {
+            list-style: none;
+            margin-top: 2rem;
+        }
+
+        .about-principles li {
+            display: flex;
+            align-items: flex-start;
+            gap: 1rem;
+            padding: 1rem 0;
+            border-bottom: 1px solid var(--cream-dark);
+            color: var(--text-dark);
+            font-weight: 500;
+        }
+
+        .about-principles li:last-child {
+            border-bottom: none;
+        }
+
+        .principle-num {
+            font-family: 'Playfair Display', serif;
+            color: var(--gold);
+            font-size: 1.3rem;
+            font-weight: 600;
+            line-height: 1.4;
+        }
+
+        .about-stats {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 2rem;
+        }
+
+        .stat-card {
+            background: var(--cream);
+            padding: 2rem;
+            border-radius: 4px;
+            text-align: center;
+            border: 1px solid var(--cream-dark);
+        }
+
+        .stat-number {
+            font-family: 'Playfair Display', serif;
+            font-size: 2.5rem;
+            font-weight: 700;
+            color: var(--navy);
+            line-height: 1;
+            margin-bottom: 0.5rem;
+        }
+
+        .stat-number span {
+            color: var(--gold);
+        }
+
+        .stat-label {
+            font-size: 0.8rem;
+            color: var(--text-light);
+            letter-spacing: 1px;
+            text-transform: uppercase;
+            font-weight: 500;
+        }
+
+        /* ─── Expertise ─── */
+        .expertise {
+            background: var(--cream);
+        }
+
+        .expertise-grid {
+            display: grid;
+            grid-template-columns: repeat(3, 1fr);
+            gap: 2rem;
+        }
+
+        .expertise-card {
+            background: var(--white);
+            padding: 2.5rem 2rem;
+            border-radius: 4px;
+            border: 1px solid var(--cream-dark);
+            transition: all 0.4s ease;
+            position: relative;
+            overflow: hidden;
+        }
+
+        .expertise-card::before {
+            content: '';
+            position: absolute;
+            top: 0;
+            left: 0;
+            right: 0;
+            height: 3px;
+            background: linear-gradient(90deg, var(--gold), var(--gold-light));
+            transform: scaleX(0);
+            transition: transform 0.4s ease;
+        }
+
+        .expertise-card:hover {
+            transform: translateY(-4px);
+            box-shadow: 0 12px 40px rgba(15, 27, 45, 0.08);
+        }
+
+        .expertise-card:hover::before {
+            transform: scaleX(1);
+        }
+
+        .expertise-icon {
+            width: 48px;
+            height: 48px;
+            background: linear-gradient(135deg, var(--navy), var(--navy-light));
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin-bottom: 1.5rem;
+        }
+
+        .expertise-icon svg {
+            width: 24px;
+            height: 24px;
+            fill: var(--gold);
+        }
+
+        .expertise-card h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.2rem;
+            color: var(--text-dark);
+            margin-bottom: 0.75rem;
+            font-weight: 600;
+        }
+
+        .expertise-card p {
+            color: var(--text-mid);
+            font-size: 0.9rem;
+            line-height: 1.7;
+        }
+
+        /* ─── Contact ─── */
+        .contact {
+            background: var(--cream);
+        }
+
+        .contact-grid {
+            display: grid;
+            grid-template-columns: 1fr 1fr;
+            gap: 4rem;
+            align-items: start;
+        }
+
+        .contact-info h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.8rem;
+            color: var(--text-dark);
+            margin-bottom: 1rem;
+            font-weight: 600;
+        }
+
+        .contact-info p {
+            color: var(--text-mid);
+            font-size: 1rem;
+            line-height: 1.7;
+            margin-bottom: 2rem;
+        }
+
+        .contact-details {
+            list-style: none;
+            display: flex;
+            flex-direction: column;
+            gap: 1.25rem;
+        }
+
+        .contact-details li {
+            display: flex;
+            align-items: center;
+            gap: 1rem;
+        }
+
+        .contact-icon {
+            width: 44px;
+            height: 44px;
+            background: var(--navy);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            flex-shrink: 0;
+        }
+
+        .contact-icon svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--gold);
+        }
+
+        .contact-detail-text {
+            display: flex;
+            flex-direction: column;
+        }
+
+        .contact-detail-label {
+            font-size: 0.7rem;
+            color: var(--text-light);
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            font-weight: 600;
+        }
+
+        .contact-detail-value {
+            color: var(--text-dark);
+            font-weight: 500;
+            text-decoration: none;
+            transition: color 0.3s;
+        }
+
+        a.contact-detail-value:hover {
+            color: var(--gold-dark);
+        }
+
+        .contact-form {
+            background: var(--white);
+            padding: 2.5rem;
+            border-radius: 4px;
+            border: 1px solid var(--cream-dark);
+        }
+
+        .contact-form h3 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.5rem;
+            color: var(--text-dark);
+            margin-bottom: 1.5rem;
+        }
+
+        .form-group {
+            margin-bottom: 1.25rem;
+        }
+
+        .form-group label {
+            display: block;
+            font-size: 0.75rem;
+            font-weight: 600;
+            letter-spacing: 1.5px;
+            text-transform: uppercase;
+            color: var(--text-light);
+            margin-bottom: 0.4rem;
+        }
+
+        .form-group input,
+        .form-group textarea {
+            width: 100%;
+            padding: 0.75rem 1rem;
+            font-family: 'Inter', sans-serif;
+            font-size: 0.95rem;
+            color: var(--text-dark);
+            background: var(--cream);
+            border: 1px solid var(--cream-dark);
+            border-radius: 3px;
+            outline: none;
+            transition: border-color 0.3s;
+        }
+
+        .form-group input:focus,
+        .form-group textarea:focus {
+            border-color: var(--gold);
+        }
+
+        .form-group textarea {
+            resize: vertical;
+            min-height: 120px;
+        }
+
+        .contact-form .btn {
+            width: 100%;
+            justify-content: center;
+            margin-top: 0.5rem;
+        }
+
+        .contact-form .btn:disabled {
+            opacity: 0.7;
+            cursor: not-allowed;
+        }
+
+        .form-success {
+            text-align: center;
+            padding: 2rem 0;
+        }
+
+        .form-success-icon {
+            width: 56px;
+            height: 56px;
+            background: var(--navy);
+            border-radius: 50%;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            margin: 0 auto 1.25rem;
+        }
+
+        .form-success-icon svg {
+            width: 28px;
+            height: 28px;
+            stroke: var(--gold);
+            fill: none;
+            stroke-width: 2.5;
+        }
+
+        .form-success h4 {
+            font-family: 'Playfair Display', serif;
+            font-size: 1.3rem;
+            color: var(--text-dark);
+            margin-bottom: 0.5rem;
+        }
+
+        .form-success p {
+            color: var(--text-mid);
+            font-size: 0.9rem;
+        }
+
+        .form-error {
+            background: #fef2f2;
+            border: 1px solid #fecaca;
+            color: #991b1b;
+            padding: 0.75rem 1rem;
+            border-radius: 3px;
+            font-size: 0.85rem;
+            margin-bottom: 1rem;
+            display: none;
+        }
+
+        .social-links {
+            display: flex;
+            justify-content: center;
+            gap: 1rem;
+            margin-top: 1.5rem;
+        }
+
+        .social-link {
+            width: 44px;
+            height: 44px;
+            background: var(--cream);
+            border: 1px solid var(--cream-dark);
+            border-radius: 4px;
+            display: flex;
+            align-items: center;
+            justify-content: center;
+            transition: all 0.3s;
+            text-decoration: none;
+        }
+
+        .social-link:hover {
+            background: var(--navy);
+            border-color: var(--navy);
+        }
+
+        .social-link svg {
+            width: 18px;
+            height: 18px;
+            fill: var(--navy);
+            transition: fill 0.3s;
+        }
+
+        .social-link:hover svg {
+            fill: var(--gold);
+        }
+
+        /* ─── Footer ─── */
+        footer {
+            background: var(--navy);
+            color: var(--text-on-dark);
+            padding: 2.5rem 2rem;
+            text-align: center;
+            font-size: 0.85rem;
+        }
+
+        footer span {
+            color: var(--gold);
+        }
+
+        /* ─── Animations ─── */
+        @keyframes fadeUp {
+            to {
+                opacity: 1;
+                transform: translateY(0);
+            }
+        }
+
+        @keyframes fadeIn {
+            to {
+                opacity: 1;
+            }
+        }
+
+        @keyframes scrollLine {
+            0% { opacity: 0; transform: scaleY(0); transform-origin: top; }
+            50% { opacity: 1; transform: scaleY(1); transform-origin: top; }
+            50.1% { transform-origin: bottom; }
+            100% { opacity: 0; transform: scaleY(0); transform-origin: bottom; }
+        }
+
+        .fade-in {
+            opacity: 0;
+            transform: translateY(30px);
+            transition: opacity 0.6s ease, transform 0.6s ease;
+        }
+
+        .fade-in.visible {
+            opacity: 1;
+            transform: translateY(0);
+        }
+
+        /* ─── Responsive ─── */
+        @media (max-width: 968px) {
+            .about-grid {
+                grid-template-columns: 1fr;
+                gap: 3rem;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr 1fr;
+            }
+
+            .contact-grid {
+                grid-template-columns: 1fr;
+                gap: 2rem;
+            }
+        }
+
+        @media (max-width: 768px) {
+            .nav-links {
+                display: none;
+                position: fixed;
+                top: 0;
+                left: 0;
+                right: 0;
+                bottom: 0;
+                background: rgba(15, 27, 45, 0.98);
+                flex-direction: column;
+                align-items: center;
+                justify-content: center;
+                gap: 2rem;
+            }
+
+            .nav-links.active {
+                display: flex;
+            }
+
+            .nav-toggle {
+                display: flex;
+            }
+
+            .hero-content {
+                padding: 0 1.5rem;
+            }
+
+            section {
+                padding: 4rem 1.5rem;
+            }
+
+            .expertise-grid {
+                grid-template-columns: 1fr;
+            }
+
+            .hero-scroll {
+                display: none;
+            }
+        }
+    </style>
+</head>
+<body>
+
+<!-- Navigation -->
+<nav id="navbar">
+    <a href="#" class="nav-logo">L<span>.</span>W</a>
+    <ul class="nav-links" id="navLinks">
+        <li><a href="#about" onclick="closeNav()">About</a></li>
+        <li><a href="#expertise" onclick="closeNav()">Expertise</a></li>
+        <li><a href="#contact" onclick="closeNav()">Contact</a></li>
+    </ul>
+    <div class="nav-toggle" id="navToggle" onclick="toggleNav()">
+        <span></span><span></span><span></span>
+    </div>
+</nav>
+
+<!-- Hero -->
+<section class="hero" id="hero">
+    <div class="hero-grid"></div>
+    <div class="hero-content">
+        <div class="hero-label">Data & AI Consulting</div>
+        <h1>
+            Lars Willrich
+            <span>Data Principal, MBA</span>
+        </h1>
+        <p class="hero-description">
+            Driving business value through scalable data platforms, cloud-native architectures, and AI accelerators. Based in Zurich, Switzerland.
+        </p>
+        <div class="hero-cta">
+            <a href="#contact" class="btn btn-primary">Get in Touch</a>
+            <a href="https://www.linkedin.com/in/lars-willrich/" target="_blank" rel="noopener noreferrer" class="btn btn-outline">LinkedIn Profile</a>
+        </div>
+    </div>
+    <div class="hero-scroll">Scroll</div>
+</section>
+
+<!-- About -->
+<section class="about" id="about">
+    <div class="section-container">
+        <div class="section-header fade-in">
+            <div class="section-label">About</div>
+            <h2 class="section-title">Combining Technical Depth<br>with Business Impact</h2>
+        </div>
+        <div class="about-grid">
+            <div class="about-text fade-in">
+                <p>
+                    Lars is a Data & AI consultant with deep expertise in Data Mesh, cloud-native architectures, and data governance. He has built IoT and Customer Data Platforms, created AI accelerators, and managed multimillion-dollar data initiatives.
+                </p>
+                <p>
+                    With experience spanning Capgemini, Deloitte, Senacor, and Capco, Lars brings a unique blend of hands-on engineering and strategic consulting to every engagement.
+                </p>
+                <ul class="about-principles">
+                    <li>
+                        <span class="principle-num">01</span>
+                        <span>Business value first</span>
+                    </li>
+                    <li>
+                        <span class="principle-num">02</span>
+                        <span>Strategic storytelling</span>
+                    </li>
+                    <li>
+                        <span class="principle-num">03</span>
+                        <span>Drive growth through relationships</span>
+                    </li>
+                </ul>
+            </div>
+            <div class="about-stats fade-in">
+                <div class="stat-card">
+                    <div class="stat-number">10<span>+</span></div>
+                    <div class="stat-label">Years Experience</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">4</div>
+                    <div class="stat-label">Top-Tier Firms</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">2<span>M+</span></div>
+                    <div class="stat-label">Revenue Managed</div>
+                </div>
+                <div class="stat-card">
+                    <div class="stat-number">MBA</div>
+                    <div class="stat-label">Business Education</div>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Expertise -->
+<section class="expertise" id="expertise">
+    <div class="section-container">
+        <div class="section-header fade-in">
+            <div class="section-label">Expertise</div>
+            <h2 class="section-title">Areas of Specialization</h2>
+        </div>
+        <div class="expertise-grid">
+            <div class="expertise-card fade-in">
+                <div class="expertise-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2L2 7l10 5 10-5-10-5zM2 17l10 5 10-5M2 12l10 5 10-5"/></svg>
+                </div>
+                <h3>Data Mesh & Platforms</h3>
+                <p>Designing and implementing Data Mesh architectures, self-service data marketplaces, and event-driven ingestion platforms that scale with business needs.</p>
+            </div>
+            <div class="expertise-card fade-in">
+                <div class="expertise-icon">
+                    <svg viewBox="0 0 24 24"><path d="M21 16V8a2 2 0 00-1-1.73l-7-4a2 2 0 00-2 0l-7 4A2 2 0 002 8v8a2 2 0 001 1.73l7 4a2 2 0 002 0l7-4A2 2 0 0022 16z"/></svg>
+                </div>
+                <h3>AI Accelerators</h3>
+                <p>Building intelligent agents and AI-driven solutions like iKYC and DORA Compliance Agents that automate complex workflows and regulatory processes.</p>
+            </div>
+            <div class="expertise-card fade-in">
+                <div class="expertise-icon">
+                    <svg viewBox="0 0 24 24"><path d="M22 12h-4l-3 9L9 3l-3 9H2"/></svg>
+                </div>
+                <h3>Cloud-Native Architecture</h3>
+                <p>Engineering scalable data pipelines on AWS and Azure using services like Kinesis, Kafka, Data Factory, Databricks, and medallion architectures.</p>
+            </div>
+            <div class="expertise-card fade-in">
+                <div class="expertise-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/></svg>
+                </div>
+                <h3>Data Governance</h3>
+                <p>Establishing regulatory data governance frameworks, access control policies, and data quality standards using tools like Collibra across large organizations.</p>
+            </div>
+            <div class="expertise-card fade-in">
+                <div class="expertise-icon">
+                    <svg viewBox="0 0 24 24"><path d="M17 21v-2a4 4 0 00-4-4H5a4 4 0 00-4 4v2"/><circle cx="9" cy="7" r="4"/><path d="M23 21v-2a4 4 0 00-3-3.87M16 3.13a4 4 0 010 7.75"/></svg>
+                </div>
+                <h3>Stakeholder Leadership</h3>
+                <p>Driving adoption across business units and C-level, combining technical depth with strategic storytelling to align data initiatives with business outcomes.</p>
+            </div>
+            <div class="expertise-card fade-in">
+                <div class="expertise-icon">
+                    <svg viewBox="0 0 24 24"><path d="M12 2v4M12 18v4M4.93 4.93l2.83 2.83M16.24 16.24l2.83 2.83M2 12h4M18 12h4M4.93 19.07l2.83-2.83M16.24 7.76l2.83-2.83"/></svg>
+                </div>
+                <h3>IoT Data Solutions</h3>
+                <p>Building end-to-end IoT data platforms that ingest from thousands of devices into centralized architectures, enabling real-time analytics and insights.</p>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Contact -->
+<section class="contact" id="contact">
+    <div class="section-container">
+        <div class="section-header fade-in">
+            <div class="section-label">Contact</div>
+            <h2 class="section-title">Let's Connect</h2>
+        </div>
+        <div class="contact-grid">
+            <div class="contact-info fade-in">
+                <h3>Ready to drive value through data?</h3>
+                <p>Whether you're looking to build a data platform, implement Data Mesh, or explore AI-driven solutions, I'd love to hear from you.</p>
+                <ul class="contact-details">
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        </div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">Email</span>
+                            <a href="mailto:larswillrich@gmail.com" class="contact-detail-value">larswillrich@gmail.com</a>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M21 10c0 7-9 13-9 13s-9-6-9-13a9 9 0 0118 0z"/><circle cx="12" cy="10" r="3"/></svg>
+                        </div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">Location</span>
+                            <span class="contact-detail-value">Zurich, Switzerland</span>
+                        </div>
+                    </li>
+                    <li>
+                        <div class="contact-icon">
+                            <svg viewBox="0 0 24 24"><path d="M16 8a6 6 0 016 6v7h-4v-7a2 2 0 00-2-2 2 2 0 00-2 2v7h-4v-7a6 6 0 016-6zM2 9h4v12H2z"/><circle cx="4" cy="4" r="2"/></svg>
+                        </div>
+                        <div class="contact-detail-text">
+                            <span class="contact-detail-label">LinkedIn</span>
+                            <a href="https://www.linkedin.com/in/lars-willrich/" target="_blank" rel="noopener noreferrer" class="contact-detail-value">linkedin.com/in/lars-willrich</a>
+                        </div>
+                    </li>
+                </ul>
+            </div>
+            <div class="contact-form fade-in">
+                <h3>Send a Message</h3>
+                <form id="contactForm">
+                    <div id="formError" class="form-error"></div>
+                    <div class="form-group">
+                        <label for="name">Name</label>
+                        <input type="text" id="name" name="name" required placeholder="Your name">
+                    </div>
+                    <div class="form-group">
+                        <label for="email">Email</label>
+                        <input type="email" id="email" name="email" required placeholder="your@email.com">
+                    </div>
+                    <div class="form-group">
+                        <label for="subject">Subject</label>
+                        <input type="text" id="subject" name="subject" required placeholder="How can I help?">
+                    </div>
+                    <div class="form-group">
+                        <label for="message">Message</label>
+                        <textarea id="message" name="message" required placeholder="Tell me about your project or inquiry..."></textarea>
+                    </div>
+                    <button type="submit" id="submitBtn" class="btn btn-primary">
+                        <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg>
+                        Send Email
+                    </button>
+                </form>
+                <div id="formSuccess" class="form-success" style="display:none;">
+                    <div class="form-success-icon">
+                        <svg viewBox="0 0 24 24"><polyline points="20 6 9 17 4 12"/></svg>
+                    </div>
+                    <h4>Message Sent</h4>
+                    <p>Thank you for reaching out. I'll get back to you shortly.</p>
+                </div>
+            </div>
+        </div>
+    </div>
+</section>
+
+<!-- Footer -->
+<footer>
+    <p>&copy; 2026 Lars Willrich <span>&middot;</span> Data & AI Consulting <span>&middot;</span> Zurich</p>
+</footer>
+
+<script>
+    // Navbar scroll effect
+    const navbar = document.getElementById('navbar');
+    window.addEventListener('scroll', () => {
+        navbar.classList.toggle('scrolled', window.scrollY > 50);
+    });
+
+    // Mobile navigation
+    function toggleNav() {
+        document.getElementById('navLinks').classList.toggle('active');
+    }
+    function closeNav() {
+        document.getElementById('navLinks').classList.remove('active');
+    }
+
+    // Scroll animations
+    const observer = new IntersectionObserver((entries) => {
+        entries.forEach((entry, index) => {
+            if (entry.isIntersecting) {
+                setTimeout(() => {
+                    entry.target.classList.add('visible');
+                }, index * 100);
+                observer.unobserve(entry.target);
+            }
+        });
+    }, { threshold: 0.1 });
+
+    document.querySelectorAll('.fade-in').forEach(el => observer.observe(el));
+
+    // Contact form → Formsubmit.co
+    document.getElementById('contactForm').addEventListener('submit', function(e) {
+        e.preventDefault();
+        const btn = document.getElementById('submitBtn');
+        const errorDiv = document.getElementById('formError');
+        errorDiv.style.display = 'none';
+        btn.disabled = true;
+        btn.innerHTML = 'Sending...';
+
+        fetch('https://formsubmit.co/ajax/larswillrich@gmail.com', {
+            method: 'POST',
+            headers: { 'Content-Type': 'application/json', 'Accept': 'application/json' },
+            body: JSON.stringify({
+                name: document.getElementById('name').value.trim(),
+                email: document.getElementById('email').value.trim(),
+                _subject: document.getElementById('subject').value.trim(),
+                message: document.getElementById('message').value.trim()
+            })
+        })
+        .then(function(res) { return res.json(); })
+        .then(function(data) {
+            if (data.success) {
+                document.getElementById('contactForm').style.display = 'none';
+                document.querySelector('.contact-form h3').style.display = 'none';
+                document.getElementById('formSuccess').style.display = 'block';
+            } else {
+                throw new Error('Submission failed');
+            }
+        })
+        .catch(function() {
+            errorDiv.textContent = 'Something went wrong. Please try again or email directly.';
+            errorDiv.style.display = 'block';
+            btn.disabled = false;
+            btn.innerHTML = '<svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" stroke-width="2"><path d="M4 4h16c1.1 0 2 .9 2 2v12c0 1.1-.9 2-2 2H4c-1.1 0-2-.9-2-2V6c0-1.1.9-2 2-2z"/><polyline points="22,6 12,13 2,6"/></svg> Send Email';
+        });
+    });
+</script>
+
+</body>
+</html>

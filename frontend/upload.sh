@@ -1,1 +1,0 @@
-aws s3 sync ./html/ s3://larswillrich.com/
